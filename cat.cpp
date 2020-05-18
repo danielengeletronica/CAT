@@ -6,6 +6,12 @@
 	
 	using namespace std; 
 	
+	Cat::Cat(char* COIAddr, int COIPort)
+	{
+			this->COIAddr = COIAddr;
+			this->COIPort = COIPort;
+	}
+	
 	int Cat::ConectToCOI()
 		{		
 			server.setAddrandPort (COIAddr, COIPort);
