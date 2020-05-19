@@ -13,7 +13,13 @@
 	}
 	
 	int Cat::ConectToCOI()
-		{		
+		{	
+			/**
+				* This method sets a socket connection to COI
+				* @return True or False
+				* @author Daniel L. S. Nascimento
+				* @since  14-05-2020
+				*/
 			server.setAddrandPort (COIAddr, COIPort);
 			
 			if (!server.CreateSocket())
@@ -40,7 +46,13 @@
 		}
 		
 		int Cat::ReadDNP3frame ()
-		{
+		{		
+				/**
+				* This method receives the DNP3frame from the COI
+				* @return True or False
+				* @author Daniel L. S. Nascimento
+				* @since  14-05-2020
+				*/
 				memset(DNP3Frame, 0x0, LEN);
 			
 				if((DNP3FrameLen = server.Read(DNP3Frame, LEN)) < 0) 
@@ -52,6 +64,12 @@
 		
 		int Cat::GetDNP3Address () 
 		{	
+			/**
+				* This method extracts the DNP3 address from a DNP3 frame
+				* @return DNP3Address
+				* @author Daniel L. S. Nascimento
+				* @since  14-05-2020
+			*/
 			int byte1, byte2;
 
 			if(DNP3Frame[4] >= 0xffffff00)
@@ -82,7 +100,15 @@
 		
 		int Cat::talkToOutstation (char* OutstationAddr,int port)
 		{
-			ClientTcpIP client(SERVER_ADDR1, PORT1);
+			/**
+				* This method sends the DNP3frame to the outstation 
+				   based on the IP address and port and waits for the answer
+				* @param OutstationAddr, IP 
+				* @return True or False
+				* @author Daniel L. S. Nascimento
+				* @since  14-05-2020
+			*/
+			ClientTcpIP client(OutstationAddr,port);
 	
 			if (!client.CreateSocket())
 			{
@@ -114,11 +140,21 @@
 	}
 	
 	void Cat::sendAnswerToCOI() 
-	{
+	{	
+		/**
+			* This method sends the DNP3frame
+			*  from the outstation  to COI 
+			* @author Daniel L. S. Nascimento
+			* @since  14-05-2020
+		*/
 		server.Write(DNP3Frame,DNP3FrameLen);
 	}
 	
 	void Cat::closeCAT()
-	{
+	{	/**
+			* This method closes the CAT connections
+			* @author Daniel L. S. Nascimento
+			* @since  14-05-2020
+		*/
 		server.closeSocket();
 	}

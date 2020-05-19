@@ -1,23 +1,21 @@
 #ifndef CAT_H
 #define CAT_H
+
 #include "ServerTCPIP.h"
 #include "ClientTCPIP.h"
 
+#define LEN 4096
 using namespace std; 
 
 //g++ master.cpp -o master -lasiopal -lopendnp3 -lasiodnp3 -pthread -lopenpal
-#define PORT 20001 //porta para conectar o tcpserver e o master
-#define PORT1 20000 //porta para conectar o tcpClient com a outstation
 
-#define BUFFER_LENGTH 4096 //tamanho do string do payload
-
-/* Sockets buffers length */
-#define LEN 4096 //tamanho da string do payload
-
-/* endereços */
-#define SERVER_ADDR "127.0.0.1" //endereço da comunicaçao entre o tcpserver e o com master
-#define  SERVER_ADDR1 "127.0.0.2" //endereço entre tcpclient e o outstation
-
+/* This class works like a gateway.
+ The cat has mathods to connecto to a client(COI),to receive the messeger,
+ to read the DNP3 frame and to extract the DNP3 address.
+ Based on DNP3 address, the cat controls the phase of a antenna array.
+ And after that, it sends the messeger to the desired server (outstation). 
+ It waits for the answer and then it sends the answer to COI (master) */
+ 
 class Cat
 {		
 	protected:
@@ -30,21 +28,12 @@ class Cat
 		
 	public:
 		Cat(char* COIAddr, int COIPort);
-		
 		int ConectToCOI();
-		
 		int ReadDNP3frame ();
-		
-		
 		int GetDNP3Address ();
-		
-		
 		int talkToOutstation (char* OutstationAddr,int port);
-		
-	
-	void sendAnswerToCOI();
-	
-	void closeCAT();
+		void sendAnswerToCOI();
+		void closeCAT();
 };
 
 #endif
