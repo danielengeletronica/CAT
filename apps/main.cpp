@@ -1,7 +1,5 @@
-
-
 #include "cat.h"
-
+#include <unistd.h>
 //g++ master.cpp -o master -lasiopal -lopendnp3 -lasiodnp3 -pthread -lopenpal
 #define PORT 20001 //porta para conectar o tcpserver e o master
 #define PORT1 20000 //porta para conectar o tcpClient com a outstation
@@ -21,23 +19,41 @@ int main(void) {
 
     Cat cat (SERVER_ADDR,PORT);
 	int DNP3Address;
-	if (!cat.ConectToCOI())
-	{
-		return 0;
-	}
 	
 	while (1)
-	{
-		if (cat.ReadDNP3frame ())
-		{
-			DNP3Address = cat.GetDNP3Address ();
-			
-			if (cat.talkToOutstation(SERVER_ADDR1,PORT1))
-			{
-				cat.sendAnswerToCOI();
+	{	
+		if (cat.ConectToCOI())
+		{	
+			int i = 0;
+			while (1)
+			{			
+				if (cat.ReadDNP3frame ())
+				{	
+					DNP3Address = cat.GetDNP3Address ();
+					
+					if (DNP3Address==0)
+					{
+						break;
+					}
+					printf("\n\nTempo 3s\n\n");
+					usleep(3000000);
+					
+					if (cat.talkToOutstation(SERVER_ADDR1,PORT1))
+					{
+						cat.sendAnswerToCOI();
+					}
+				}
+				
+				else 
+				{	
+					i++;
+					if (i==10)
+						break;
+				}
+				
 			}
+			cat.closeCAT();
 		}
 	}
-	cat.closeCAT();
 	return 0;
 }
