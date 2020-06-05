@@ -35,12 +35,11 @@ int main(void) {
 					{
 						break;
 					}
-					printf("\n\nTempo 3s\n\n");
-					usleep(3000000);
-					
+
 					if (cat.talkToOutstation(SERVER_ADDR1,PORT1))
-					{
+					{	
 						cat.sendAnswerToCOI();
+						
 					}
 				}
 				

@@ -1,4 +1,8 @@
 #include "ClientTCPIP.h"		
+#include<pthread.h>
+#include <unistd.h>
+#include <signal.h>
+#include<string.h>
 
 /* Sockets buffers length */
 #define LEN 4096 //tamanho da string do payload
@@ -47,11 +51,33 @@
 		write(sockfd, buffer, len);
 		memset(buffer, 0x0, LEN);
 	}
-		
+	
+	
+	int message_len;
+	int sock;
+	
+	void* function (void *arg)
+	{	
+		char *buffer = (char *)(arg);
+		message_len = 0;
+		printf("\nWainting for the message\n");
+		message_len = read(sock,buffer,LEN);
+	}
+	
+	
+	
 	int ClientTcpIP::Read(char* buffer, int len)
-	{
-		int message_len;
-		message_len = read(sockfd, buffer, LEN);
+	{	
+		sock = sockfd;
+		memset(buffer, 0x0, LEN);
+		message_len = 0;
+		int sock = sockfd;
+		pthread_t t1;
+		pthread_create(&t1, NULL,function, (void *)(buffer));
+		usleep(3000000);
+		pthread_kill(t1, NULL);	
+		
+		
 		return message_len;
 	}
 		

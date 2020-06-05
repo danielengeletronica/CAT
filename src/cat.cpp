@@ -3,7 +3,7 @@
 	#include "ServerTCPIP.h"
 	#include "ClientTCPIP.h"
 	#include "cat.h"
-	
+	#define LEN 4096
 	using namespace std; 
 	
 	Cat::Cat(char* COIAddr, int COIPort)
@@ -118,24 +118,13 @@
 			if (!client.Conect()){
 				return 0;
 			}
-	
-			client.Write(DNP3Frame, DNP3FrameLen);
 			
-			for (int i=0;i<100;i++)
-			{
-
-				if((DNP3FrameLen = client.Read(DNP3Frame, LEN)) > 0)
-				{
-					break;
-				} 
-				
-				if (i==99)
-				{
-					return 0;
-				}
-
-			}			
-		client.closeSocket();
+			client.Write(DNP3Frame, DNP3FrameLen);
+		
+			DNP3FrameLen = client.Read(DNP3Frame, LEN);
+		
+						
+		
 		return 1;
 	}
 	
