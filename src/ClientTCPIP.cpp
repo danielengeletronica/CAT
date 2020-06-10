@@ -52,7 +52,6 @@
 		memset(buffer, 0x0, LEN);
 	}
 	
-	
 	int message_len;
 	int sock;
 	
@@ -73,8 +72,17 @@
 		message_len = 0;
 		int sock = sockfd;
 		pthread_t t1;
-		pthread_create(&t1, NULL,function, (void *)(buffer));
-		usleep(3000000);
+		pthread_create(&t1, NULL, function, (void *)(buffer));
+		
+		for (int i =0; i<1000; i++)
+		{
+			if (message_len!=0)
+			{
+				break;
+			}
+			usleep(10);
+		}
+		
 		pthread_kill(t1, NULL);	
 		
 		

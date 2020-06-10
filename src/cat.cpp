@@ -121,10 +121,9 @@
 			
 			client.Write(DNP3Frame, DNP3FrameLen);
 		
-			DNP3FrameLen = client.Read(DNP3Frame, LEN);
-		
-						
-		
+			DNP3FrameLen = client.Read(DNP3Frame, LEN);	
+			
+			client.closeSocket();
 		return 1;
 	}
 	
@@ -146,4 +145,5 @@
 			* @since  14-05-2020
 		*/
 		server.closeSocket();
+	
 	}

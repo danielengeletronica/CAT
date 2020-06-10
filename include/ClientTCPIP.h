@@ -21,13 +21,12 @@
 using namespace std; 
 
 class ClientTcpIP
-{
+{	
 	protected:
 		struct sockaddr_in server;
 		int sockfd;
 		char* serverAddr =(char*) malloc(1*sizeof (char));
-		int port;
-		
+		int port;	
 	public:
 		ClientTcpIP (char* serverAddr, int port);
 		int CreateSocket ();
