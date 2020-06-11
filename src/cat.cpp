@@ -12,25 +12,27 @@
 			this->COIPort = COIPort;
 	}
 	
+	int Cat::CreateServer()
+	{
+		server.setAddrandPort (COIAddr, COIPort);
+			
+			if (!server.CreateSocket())
+			{
+				return 0;
+			}
+				if (!server.Bind()){
+				return 0;
+			}
+			
+	}
 	int Cat::ConectToCOI()
-		{	
+	{	
 			/**
 				* This method sets a socket connection to COI
 				* @return True or False
 				* @author Daniel L. S. Nascimento
 				* @since  14-05-2020
 				*/
-			server.setAddrandPort (COIAddr, COIPort);
-			
-			if (!server.CreateSocket())
-			{
-				return 0;
-			}
-	
-			if (!server.Bind()){
-				return 0;
-			}
-	
 			if (!server.Listen()){
 				return 0;
 			}
@@ -43,7 +45,7 @@
 			fprintf(stdout, "Client connected.\nWaiting for client message ...\n");
 			
 			return 1;
-		}
+	}
 		
 		int Cat::ReadDNP3frame ()
 		{		
@@ -97,6 +99,7 @@
 			
 			return (byte2*0x100) + byte1;	
 		}
+		
 		
 		int Cat::talkToOutstation (char* OutstationAddr,int port)
 		{

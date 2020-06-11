@@ -29,6 +29,7 @@ class Cat
 		
 	public:
 		Cat(char* COIAddr, int COIPort);
+		int CreateServer();
 		int ConectToCOI();
 		int ReadDNP3frame ();
 		int GetDNP3Address ();

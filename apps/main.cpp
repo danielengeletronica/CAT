@@ -22,6 +22,7 @@ int main(void) {
 	
 	while (1)
 	{	
+		cat.CreateServer();
 		if (cat.ConectToCOI())
 		{	
 			while (1)
