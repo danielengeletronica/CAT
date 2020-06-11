@@ -29,13 +29,13 @@ class Cat
 		
 	public:
 		Cat(char* COIAddr, int COIPort);
-		int CreateServer();
 		int ConectToCOI();
 		int ReadDNP3frame ();
 		int GetDNP3Address ();
 		int talkToOutstation (char* OutstationAddr,int port);
 		void sendAnswerToCOI();
 		void closeCAT();
+		~Cat();
 };
 
 #endif

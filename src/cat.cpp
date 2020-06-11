@@ -12,19 +12,7 @@
 			this->COIPort = COIPort;
 	}
 	
-	int Cat::CreateServer()
-	{
-		server.setAddrandPort (COIAddr, COIPort);
-			
-			if (!server.CreateSocket())
-			{
-				return 0;
-			}
-				if (!server.Bind()){
-				return 0;
-			}
-			
-	}
+	
 	int Cat::ConectToCOI()
 	{	
 			/**
@@ -33,10 +21,21 @@
 				* @author Daniel L. S. Nascimento
 				* @since  14-05-2020
 				*/
+			server.setAddrandPort (COIAddr, COIPort);
+			
+			if (!server.CreateSocket())
+			{
+				return 0;
+			}	
+				
+			if (!server.Bind()){
+				return 0;
+			}
+			
 			if (!server.Listen()){
 				return 0;
 			}
-	
+			
 			if (!server.Accept())
 			{
 				return 0;
@@ -149,4 +148,8 @@
 		*/
 		server.closeSocket();
 	
+	}
+	
+	Cat::~Cat(){
+		printf("cleaning\n");
 	}

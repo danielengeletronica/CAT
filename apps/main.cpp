@@ -18,34 +18,35 @@ using namespace std;
 int main(void) {
     
 	int DNP3Address;
-	Cat cat (SERVER_ADDR,PORT);
+	
 	
 	while (1)
 	{	
-		cat.CreateServer();
-		if (cat.ConectToCOI())
+		Cat *cat = new Cat (SERVER_ADDR,PORT);
+		
+		if (cat->ConectToCOI())
 		{	
 			while (1)
 			{			
-				if (cat.ReadDNP3frame ())
+				if (cat->ReadDNP3frame ())
 				{	
-					DNP3Address = cat.GetDNP3Address ();
+					DNP3Address = cat->GetDNP3Address ();
 					
 					if (DNP3Address==0)
 					{
 						break;
 					}
 
-					if (cat.talkToOutstation(SERVER_ADDR1,PORT1))
+					if (cat->talkToOutstation(SERVER_ADDR1,PORT1))
 					{	
-						cat.sendAnswerToCOI();
+						cat->sendAnswerToCOI();
 					}
 				}
 				
 			}
 		}
-		cat.closeCAT();
-		
+		cat->closeCAT();
+		delete cat;
 	}
 	return 0;
 }
