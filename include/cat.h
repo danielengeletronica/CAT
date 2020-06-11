@@ -20,6 +20,7 @@ class Cat
 {		
 	protected:
 		ServerTcpIP server;
+		ClientTcpIP client;
 		int COIPort;
 		char* COIAddr=(char*) malloc(1*sizeof (char));
 		char DNP3Frame[LEN];

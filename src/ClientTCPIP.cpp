@@ -8,7 +8,8 @@
 #define LEN 4096 //tamanho da string do payload
 
 	using namespace std; 
-	ClientTcpIP::ClientTcpIP (char* serverAddr, int port)
+	
+	void ClientTcpIP::setAddrandPort (char* serverAddr, int port)
 	{
 		this->serverAddr = serverAddr;
 		this->port = port;

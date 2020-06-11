@@ -28,7 +28,7 @@ class ClientTcpIP
 		char* serverAddr =(char*) malloc(1*sizeof (char));
 		int port;	
 	public:
-		ClientTcpIP (char* serverAddr, int port);
+		void setAddrandPort (char* serverAddr, int port);
 		int CreateSocket ();
 		int Conect ();
 		void Write(char* buffer, int len);

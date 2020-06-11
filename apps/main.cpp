@@ -18,9 +18,10 @@ using namespace std;
 int main(void) {
     
 	int DNP3Address;
+	Cat cat (SERVER_ADDR,PORT);
 	
 	while (1)
-	{	Cat cat (SERVER_ADDR,PORT);
+	{	
 		if (cat.ConectToCOI())
 		{	
 			while (1)
@@ -38,11 +39,6 @@ int main(void) {
 					{	
 						cat.sendAnswerToCOI();
 					}
-				}
-				
-				else 
-				{	
-						break;
 				}
 				
 			}

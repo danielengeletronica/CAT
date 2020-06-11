@@ -108,8 +108,8 @@
 				* @author Daniel L. S. Nascimento
 				* @since  14-05-2020
 			*/
-			ClientTcpIP client(OutstationAddr,port);
-	
+			client.setAddrandPort (OutstationAddr, port);
+			
 			if (!client.CreateSocket())
 			{
 				return 0;
