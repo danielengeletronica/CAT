@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include<string.h>
+#include<iostream>
 
 /* Sockets buffers length */
 #define LEN 4096 //tamanho da string do payload
@@ -27,7 +28,8 @@
 			return 0;
 		}
 		fprintf(stdout, "Client socket created with fd: %d\n", sockfd);
-			
+		setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, NULL, sizeof(int));
+		
 		/* Defines the connection properties */
 		server.sin_family = AF_INET;         
 		server.sin_port = htons(port);
@@ -39,7 +41,7 @@
 	int ClientTcpIP::Conect ()
 	{
 		int len = sizeof(server);
-		if (connect(sockfd, (struct sockaddr*) &server, len) == -1)
+		if (connected = connect(sockfd, (struct sockaddr*) &server, len) == -1)
 		{
 			perror("Can't connect to server");
 			return 0;
@@ -91,6 +93,7 @@
 	}
 		
 	void ClientTcpIP::closeSocket() 
-	{
+	{	
+		close(connected); 
 		close(sockfd);
 	}

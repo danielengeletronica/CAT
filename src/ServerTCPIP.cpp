@@ -3,6 +3,7 @@
 /* Sockets buffers length */
 #define LEN 4096 //tamanho da string do payload
 using namespace std; 
+
 	void ServerTcpIP::setAddrandPort (char* serverAddr, int port)
 	{
 		this->serverAddr = serverAddr;
@@ -93,5 +94,6 @@ using namespace std;
 		
 	void ServerTcpIP::closeSocket ()
 	{	
+		close(clientfd);
 		close(serverfd);
 	}

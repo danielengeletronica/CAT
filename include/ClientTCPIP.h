@@ -25,6 +25,7 @@ class ClientTcpIP
 	protected:
 		struct sockaddr_in server;
 		int sockfd;
+		int connected;
 		char* serverAddr =(char*) malloc(1*sizeof (char));
 		int port;	
 	public:
