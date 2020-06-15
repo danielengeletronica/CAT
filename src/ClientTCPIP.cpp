@@ -44,6 +44,8 @@
 		if (connected = connect(sockfd, (struct sockaddr*) &server, len) == -1)
 		{
 			perror("Can't connect to server");
+		
+			close(sockfd);
 			return 0;
 		}
 		return 1;

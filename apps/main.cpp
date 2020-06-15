@@ -12,6 +12,39 @@
 /* endereços */
 #define SERVER_ADDR "127.0.0.1" //endereço da comunicaçao entre o tcpserver e o com master
 #define  SERVER_ADDR1 "127.0.0.2" //endereço entre tcpclient e o outstation
+#define  SERVER_ADDR2 "127.0.0.3"
+#define  SERVER_ADDR3 "127.0.0.4"
+
+char* getIPAddress(int DNP3Address)
+{
+	if (DNP3Address ==3)
+		return SERVER_ADDR1;
+	
+	if (DNP3Address ==4)
+		return SERVER_ADDR2;
+	
+	if (DNP3Address ==5)
+		return SERVER_ADDR3;
+	
+	return SERVER_ADDR1;
+	
+} 
+
+int getPort(int DNP3Address)
+{
+	if (DNP3Address ==3)
+		return 20000;
+	
+	if (DNP3Address ==4)
+		return 20001;
+	
+	if (DNP3Address ==5)
+		return 20002;
+	
+	return 20000;
+	
+}
+
 
 using namespace std;
  
@@ -37,9 +70,14 @@ int main(void) {
 						break;
 					}
 
-					if (cat->talkToOutstation(SERVER_ADDR1,PORT1))
+					if (cat->talkToOutstation(getIPAddress(DNP3Address),getPort(DNP3Address)))
 					{	
 						cat->sendAnswerToCOI();
+					}
+					
+					else 
+					{
+						break;
 					}
 				}
 				
