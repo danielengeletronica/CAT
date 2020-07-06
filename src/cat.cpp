@@ -3,17 +3,11 @@
 	#include "ServerTCPIP.h"
 	#include "ClientTCPIP.h"
 	#include "cat.h"
-	#define LEN 4096
+	#define LEN 10000
 	using namespace std; 
 	
-	Cat::Cat(char* COIAddr, int COIPort)
-	{
-			this->COIAddr = COIAddr;
-			this->COIPort = COIPort;
-	}
 	
-	
-	int Cat::ConectToCOI()
+	int Cat::ConectToCOI(char* COIAddr, int COIPort)
 	{	
 			/**
 				* This method sets a socket connection to COI
@@ -21,9 +15,8 @@
 				* @author Daniel L. S. Nascimento
 				* @since  14-05-2020
 				*/
-			server.setAddrandPort (COIAddr, COIPort);
 			
-			if (!server.CreateSocket())
+			if (!server.CreateSocket(COIAddr, COIPort))
 			{
 				return 0;
 			}	
@@ -110,22 +103,25 @@
 				* @author Daniel L. S. Nascimento
 				* @since  14-05-2020
 			*/
-			client.setAddrandPort (OutstationAddr, port);
+			ClientTcpIP *client = new ClientTcpIP;
 			
-			if (!client.CreateSocket())
+			if (!client->CreateSocket(OutstationAddr, port))
 			{
 				return 0;
 			}
 		
-			if (!client.Conect()){
+			if (!client->Conect()){
 				return 0;
 			}
 			
-			client.Write(DNP3Frame, DNP3FrameLen);
+			client->Write(DNP3Frame, DNP3FrameLen);
 		
-			DNP3FrameLen = client.Read(DNP3Frame, LEN);	
+			DNP3FrameLen = client->Read(DNP3Frame, LEN);	
 			
-			client.closeSocket();
+			client->closeSocket();
+			
+			delete client;
+
 		return 1;
 	}
 	
@@ -151,5 +147,5 @@
 	}
 	
 	Cat::~Cat(){
-		printf("cleaning\n");
+		printf("cleaning cat\n");
 	}

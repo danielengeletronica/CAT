@@ -4,7 +4,7 @@
 #include "ServerTCPIP.h"
 #include "ClientTCPIP.h"
 
-#define LEN 4096
+#define LEN 10000
 using namespace std; 
 
 //g++ master.cpp -o master -lasiopal -lopendnp3 -lasiodnp3 -pthread -lopenpal
@@ -20,16 +20,14 @@ class Cat
 {		
 	protected:
 		ServerTcpIP server;
-		ClientTcpIP client;
 		int COIPort;
-		char* COIAddr=(char*) malloc(1*sizeof (char));
 		char DNP3Frame[LEN];
 		int DNP3FrameLen;
 		int DNP3Addr;
 		
 	public:
-		Cat(char* COIAddr, int COIPort);
-		int ConectToCOI();
+		
+		int ConectToCOI(char* COIAddr, int COIPort);
 		int ReadDNP3frame ();
 		int GetDNP3Address ();
 		int talkToOutstation (char* OutstationAddr,int port);

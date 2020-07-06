@@ -2,7 +2,7 @@
 #define CLIENTTCPIP_H
 
 /* Sockets buffers length */
-#define LEN 4096 //tamanho da string do payload
+#define LEN 10000 //tamanho da string do payload
 #include<string>
 #include<iostream>
 #include <cstdlib>
@@ -26,15 +26,14 @@ class ClientTcpIP
 		struct sockaddr_in server;
 		int sockfd;
 		int connected;
-		char* serverAddr =(char*) malloc(1*sizeof (char));
 		int port;	
 	public:
-		void setAddrandPort (char* serverAddr, int port);
-		int CreateSocket ();
+		int CreateSocket (char* serverAddr, int port);
 		int Conect ();
 		void Write(char* buffer, int len);
 		int Read(char* buffer, int len);
-		void closeSocket(); 
+		void closeSocket();
+		~ClientTcpIP();
 };
 
 #endif

@@ -1,16 +1,10 @@
 #include "ServerTCPIP.h"
 
 /* Sockets buffers length */
-#define LEN 4096 //tamanho da string do payload
+#define LEN 10000 //tamanho da string do payload
 using namespace std; 
-
-	void ServerTcpIP::setAddrandPort (char* serverAddr, int port)
-	{
-		this->serverAddr = serverAddr;
-		this->port = port;
-	}
 	
-	int ServerTcpIP::CreateSocket ()
+	int ServerTcpIP::CreateSocket (char* serverAddr, int port)
 	{
 		fprintf(stdout, "Starting server\n");
 
@@ -27,8 +21,8 @@ using namespace std;
 
 		/* Define as propriedades do socket*/
 		server.sin_family = AF_INET;
-		server.sin_port = htons(this->port); //numero da porta
-		server.sin_addr.s_addr = inet_addr(this->serverAddr);
+		server.sin_port = htons(port); //numero da porta
+		server.sin_addr.s_addr = inet_addr(serverAddr);
 		memset(server.sin_zero, 0x0, 8); //limpando string
 
 		/* verifica se o socket ja esta sendo utilizado */

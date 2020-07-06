@@ -4,20 +4,13 @@
 #include <signal.h>
 #include<string.h>
 #include<iostream>
-
 /* Sockets buffers length */
-#define LEN 4096 //tamanho da string do payload
+#define LEN 10000 //tamanho da string do payload
 
 	using namespace std; 
 	
-	void ClientTcpIP::setAddrandPort (char* serverAddr, int port)
-	{
-		this->serverAddr = serverAddr;
-		this->port = port;
-	}
-		
-	int ClientTcpIP::CreateSocket ()
-	{
+	int ClientTcpIP::CreateSocket (char* serverAddr, int port)
+	{	
 		fprintf(stdout, "Starting Client ...\n");
 		/*
 		* Creates a socket for the client
@@ -35,6 +28,7 @@
 		server.sin_port = htons(port);
 		server.sin_addr.s_addr = inet_addr(serverAddr);
 		memset(server.sin_zero, 0x0, 8);
+		
 		return 1;
 	}
 		
@@ -98,4 +92,9 @@
 	{	
 		close(connected); 
 		close(sockfd);
+	}
+	
+	ClientTcpIP::~ClientTcpIP()
+	{
+		printf("cleaning client\n");
 	}
