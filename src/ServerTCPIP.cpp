@@ -80,10 +80,14 @@ using namespace std;
 		return message_len;
 	}
 	
-	void ServerTcpIP::Write (char* buffer, int len)
+	int ServerTcpIP::Write (char* buffer, int len)
 	{
-		write(clientfd, buffer, len);	
+		if (write(clientfd, buffer, len)<0)
+		{
+			return 0;
+		}	
 		memset(buffer, 0x0, LEN);
+		return 1;
 	}
 		
 	void ServerTcpIP::closeSocket ()
