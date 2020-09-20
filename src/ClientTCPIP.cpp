@@ -64,13 +64,12 @@
 	
 	
 	
-	int ClientTcpIP::Read(char* buffer, int len)
+	int ClientTcpIP::Read(char* buffer, int len, pthread_t t1)
 	{	
 		sock = sockfd;
 		memset(buffer, 0x0, LEN);
 		message_len = 0;
 		int sock = sockfd;
-		pthread_t t1;
 		pthread_create(&t1, NULL, function, (void *)(buffer));
 		
 		for (int i=0;i<200;i++)
@@ -82,9 +81,8 @@
 
 			usleep(10);
 		}
-		
-		pthread_kill(t1, NULL);	
-		
+		pthread_cancel(t1);	
+		pthread_join(t1,NULL);
 		
 		return message_len;
 	}

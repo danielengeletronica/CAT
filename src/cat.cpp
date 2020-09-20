@@ -4,9 +4,24 @@
 	#include "ClientTCPIP.h"
 	#include "cat.h"
 	#include <memory>
-
+	#include <csignal>
+	
+	#define BIT0 1;
+	#define BIT1 2;
+	#define BIT2 3;
+	#define BIT3 4;
+	#define BIT4 5;
+	#define BIT5 6;
+	#define BIT6 7;
+	#define BIT7 8;
+	
 	#define LEN 10000
 	using namespace std; 
+	
+	Cat::Cat()
+	{
+		printf("iniciando o CAT");
+	}
 	
 	
 	int Cat::ConectToCOI(char* COIAddr, int COIPort)
@@ -103,7 +118,7 @@
 		}
 		
 		
-		int Cat::talkToOutstation (char* OutstationAddr,int port)
+		int Cat::talkToOutstation (char* OutstationAddr,int port, pthread_t t1)
 		{
 			/**
 				* This method sends the DNP3frame to the outstation 
@@ -128,12 +143,12 @@
 			client->Write(DNP3Frame, DNP3FrameLen);
 			
 		        do{
-			DNP3FrameLen = client->Read(DNP3Frame, LEN);	
-			server.Write(DNP3Frame,DNP3FrameLen);
+					DNP3FrameLen = client->Read(DNP3Frame, LEN, t1);	
+					server.Write(DNP3Frame,DNP3FrameLen);
 		        }while(DNP3FrameLen>0);
 					
 			client->closeSocket();
-			
+			signal(SIGCHLD,SIG_IGN);
 			
 			printf ("correct!!\n");
 			if (DNP3FrameLen==0)
