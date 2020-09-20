@@ -31,7 +31,7 @@ class ClientTcpIP
 		int CreateSocket (char* serverAddr, int port);
 		int Conect ();
 		void Write(char* buffer, int len);
-		int Read(char* buffer, int len, pthread_t t1);
+		int Read(char* buffer, int len, pthread_t* t1);
 		void closeSocket();
 		~ClientTcpIP();
 };

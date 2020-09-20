@@ -43,7 +43,7 @@ int getPort(int DNP3Address)
 	
 }
 
-FILE *pont_arq;	
+
 
 
 using namespace std;
@@ -52,13 +52,8 @@ int test() {
     
 	int DNP3Address;
 	int i;	
-	clock_t t1, t2; 
-	int dt;
-	char n[2] = "\n";
-	char sp[2] = " ";
 	unique_ptr<Cat> cat(new Cat);
-	
-	
+
 		if (cat->ConectToCOI(SERVER_ADDR,20000))
 		{  
 		    for (i=0; i<80; i++)
@@ -66,31 +61,16 @@ int test() {
 						
 				if (cat->ReadDNP3frame ())
 				{
-					dt = 0;
-					fprintf(pont_arq, "%d", dt);
-					fprintf(pont_arq, "%s", sp);
+					
 					DNP3Address = cat->GetDNP3Address ();
 					
 					if (DNP3Address==0)
 					{
 						printf("nothing");
+						break;
 					}
 
-					else if (cat->talkToOutstation(getIPAddress(DNP3Address),getPort(DNP3Address)))
-					{	if (DNP3Address ==4)
-						{
-							dt = 1;
-							fprintf(pont_arq, "%d", dt);
-							fprintf(pont_arq, "%s", sp);
-						}
-						if (DNP3Address ==5)
-						{
-							dt = 2;
-							fprintf(pont_arq, "%d", dt);
-							fprintf(pont_arq, "%s", sp);
-						}
-					}
-				   fprintf(pont_arq, "%s", n);
+					cat->talkToOutstation(getIPAddress(DNP3Address),getPort(DNP3Address);
 				}
 
 				else {
@@ -100,29 +80,8 @@ int test() {
 				
 			}
 		}
-		cat->closeCAT();
-		
+	cat->closeCAT();
+	system("./bin/br");	
 	return 0;
 }
-
-int main ()
-{
-	
-	pont_arq = fopen("arquivo_palavra.txt", "a");
-	if(pont_arq == NULL)
-  	{
- 		 printf("Erro na abertura do arquivo!");
- 		 exit(0);
- 	}	
-	int i;
-	for (i=0;i<1;i++)
-		{test();}
-	
-	system("./bin/br");
-	fclose(pont_arq);
-	return 0;
-}
-
-
-
 

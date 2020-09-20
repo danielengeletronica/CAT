@@ -26,11 +26,11 @@ class Cat
 		int DNP3Addr;
 		
 	public:
-		
+		Cat();
 		int ConectToCOI(char* COIAddr, int COIPort);
 		int ReadDNP3frame ();
 		int GetDNP3Address ();
-		int talkToOutstation (char* OutstationAddr,int port);
+		int talkToOutstation (char* OutstationAddr,int port,pthread_t t1);
 		void closeCAT();
 		~Cat();
 };
