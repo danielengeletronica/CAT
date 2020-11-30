@@ -5,7 +5,7 @@
 	#include "cat.h"
 	#include <memory>
 	#include <csignal>
-	
+	#include <sys/socket.h>
 	#define BIT0 1;
 	#define BIT1 2;
 	#define BIT2 3;
@@ -70,6 +70,8 @@
 				{
 				    return 0;  
 			   	 }
+			   
+			   	 
 
 				int i;
 			for (i = 0; i< DNP3FrameLen; i++)
@@ -145,6 +147,7 @@
 		        do{
 					DNP3FrameLen = client->Read(DNP3Frame, LEN, t1);	
 					server.Write(DNP3Frame,DNP3FrameLen);
+					printf("\n carregando\n");
 		        }while(DNP3FrameLen>0);
 					
 			client->closeSocket();

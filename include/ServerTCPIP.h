@@ -32,7 +32,8 @@ class ServerTcpIP
 		int Accept ();
 		int Read (char* buffer, int len);
 		int Write (char* buffer, int len);
-		void closeSocket ();	
+		void closeSocket ();
+		
 };
 
 #endif

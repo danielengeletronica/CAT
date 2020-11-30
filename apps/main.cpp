@@ -11,10 +11,10 @@
 #include <csignal>
 
 /* endereços */
-#define SERVER_ADDR "127.0.0.2" //endereço da comunicaçao entre o tcpserver e o com master
-#define  SERVER_ADDR1 "127.0.0.1" //endereço entre tcpclient e o outstation
-#define  SERVER_ADDR2 "192.168.25.127"
-#define  SERVER_ADDR3 "127.0.0.4"
+#define SERVER_ADDR "192.168.0.221" //endereço da comunicaçao entre o tcpserver e o com master
+#define  SERVER_ADDR1 "192.168.26.124" //endereço entre tcpclient e o outstation
+#define  SERVER_ADDR2 "192.168.26.124"
+#define  SERVER_ADDR3 "192.168.26.124"
 
 char* getIPAddress(int DNP3Address)
 {
@@ -53,7 +53,7 @@ int main() {
 	unique_ptr<Cat> cat(new Cat);
 	pthread_t t1;
    while(1){
-		if (cat->ConectToCOI(SERVER_ADDR,20001))
+		if (cat->ConectToCOI(SERVER_ADDR,20000))
 		{  
 		    for (i =0; i<80;i++)
 			{	

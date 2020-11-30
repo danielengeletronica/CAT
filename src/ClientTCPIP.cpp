@@ -72,7 +72,7 @@
 		int sock = sockfd;
 		pthread_create(&t1, NULL, function, (void *)(buffer));
 		
-		for (int i=0;i<200;i++)
+		for (int i=0;i<15000;i++)
 		{
 			if (message_len!=0)
 			{
